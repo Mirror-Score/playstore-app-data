@@ -3,6 +3,7 @@ import requests
 
 BASE_URL = "https://play.google.com/store/apps/details"
 
+
 def fetch_playstore(id: str, base_url=BASE_URL) -> str:
     """
     Fetch html from playstore with corresponding package id
@@ -30,7 +31,7 @@ def get_data(id: str):
 
     Return:
         A dict of data associated with package id passed
-        
+
         example:
 
         {
@@ -54,12 +55,12 @@ def get_data(id: str):
     print("hello")
     data = {}
     html_doc = fetch_playstore(id)
-    soup = BeautifulSoup(html_doc, 'html.parser')
+    soup = BeautifulSoup(html_doc, "html.parser")
 
     for divs in soup.select(".hAyfc")[:5]:
         _key, _val = list(divs.children)
         key = "_".join(_key.text.lower().split(" "))
         val = str(_val.text).strip()
         data.update({key: val})
-    
+
     return data
