@@ -18,7 +18,7 @@ cache = Cache(app)
 @cache.cached(timeout=CACHE_TIMEOUT, query_string=True)
 def hello_world():
     id = request.args.get("id")
-    data = {}
+    data = {"message": "Please add id as query parameter"}
     if id:
         data = get_data(id)
 
