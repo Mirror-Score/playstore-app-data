@@ -1,25 +1,30 @@
-from bs4 import BeautifulSoup
+import traceback
+
 import requests
+from bs4 import BeautifulSoup
+from flask import current_app
 
-BASE_URL = "https://play.google.com/store/apps/details"
 
-
-def fetch_playstore(id: str, base_url=BASE_URL) -> str:
+def fetch_playstore(id: str, base_url=None) -> str:
     """
     Fetch html from playstore with corresponding package id
+
     Args:
-        id : Package id
-        base_url(str): Base url of playstore
-    Return:
-        HTML document string
+        id (str): Package id
+        base_url (str, BASE_URL): Base url of playstore
+
+    Returns:
+        str: HTML document string
     """
+    if base_url is None:
+        base_url = current_app.config["PLAYSTORE_URL"]
+
     url = base_url + f"?id={id}"
     try:
         res = requests.get(url)
         return res.text
-    except Exception as e:
-        # TODO: implement log traceback to stderr
-        print(e)
+    except Exception:
+        traceback.print_exc()
         return ""
 
 
@@ -27,10 +32,10 @@ def get_data(id: str):
     """
     Get app data of id passed from playstore
     Args:
-        id: id of package to fetch from playstore
+        id (str): id of package to fetch from playstore
 
     Return:
-        A dict of data associated with package id passed
+        dict: A dict of data associated with package id passed
 
         example:
 
@@ -52,7 +57,6 @@ def get_data(id: str):
         'requires_android': '5.0 and up'
     }
     """
-    print("hello")
     data = {}
     html_doc = fetch_playstore(id)
     soup = BeautifulSoup(html_doc, "html.parser")
