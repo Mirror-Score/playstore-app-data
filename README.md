@@ -31,6 +31,11 @@ cd playstore-app-data
 ```bash
 make
 ```
+- Activate virtual environment if using
+- Start local server
+```bash
+python wsgi.py
+```
 
 # Usage
 
