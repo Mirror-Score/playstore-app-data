@@ -1,20 +1,35 @@
-# PlayStore App Data
 API to get information of app in playstore
 
-This API is currently intended to use for checking the current version of app in Google playstore to compare with installed version of app in device.
+This API is currently intended to use for checking the current version of app 
+in Google playstore to compare with installed version of app in device.
+
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+- [Installation](#installation)
+  - [pre-requisite](#pre-requisite)
+  - [Setup instructions](#setup-instructions)
+- [Usage](#usage)
+- [Upcoming features](#upcoming-features)
+- [TODO](#todo)
+- [Contribution](#contribution)
+- [License](#license)
 
 # Installation
 
+## pre-requisite
+- [Poetry](https://python-poetry.org/)
+- Python-3.8 or above
+- Git
+
+## Setup instructions
 - Clone this repository and change directory.
-- Installation using [Poetry](https://python-poetry.org/)(recommended).
 ```bash
-poetry install
-# OR without poetry
-pip install -r requirements
+git clone https://github.com/Mirror-Score/playstore-app-data
+cd playstore-app-data
 ```
-- Run application
+- Install setup
 ```bash
-python wsgi.py
+make
 ```
 
 # Usage
@@ -29,7 +44,7 @@ Add other searchable parameters like name, title, keyworks, etc.
 # TODO
 - [ ] Add unit test.
 - [ ] Add other searchable parameters.
-- [ ] Add better error handling and loggin to API.
+- [ ] Add better error handling and logging to API.
 - [ ] Make dir structure organised and handle environment.
 - [ ] Setup Docker and Heroku deployment.
 - [ ] Setup contributions and issue guidelines.
