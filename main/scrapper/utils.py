@@ -1,34 +1,7 @@
-import traceback
-
-import requests
-from bs4 import BeautifulSoup
-from flask import current_app
+from google_play_scraper import app
 
 
-def fetch_playstore(id: str, base_url=None) -> str:
-    """
-    Fetch html from playstore with corresponding package id
-
-    Args:
-        id (str): Package id
-        base_url (str, BASE_URL): Base url of playstore
-
-    Returns:
-        str: HTML document string
-    """
-    if base_url is None:
-        base_url = current_app.config["PLAYSTORE_URL"]
-
-    url = base_url + f"?id={id}"
-    try:
-        res = requests.get(url)
-        return res.text
-    except Exception:
-        traceback.print_exc()
-        return ""
-
-
-def get_data(id: str):
+def get_data(id: str, keys=None):
     """
     Get app data of id passed from playstore
     Args:
@@ -57,14 +30,15 @@ def get_data(id: str):
         'requires_android': '5.0 and up'
     }
     """
-    data = {}
-    html_doc = fetch_playstore(id)
-    soup = BeautifulSoup(html_doc, "html.parser")
+    data = app(id, lang="en", country="in")  # defaults to 'en'  # defaults to 'us'
 
-    for divs in soup.select(".hAyfc")[:5]:
-        _key, _val = list(divs.children)
-        key = "_".join(_key.text.lower().split(" "))
-        val = str(_val.text).strip()
-        data.update({key: val})
+    data["current_version"] = data.get("version")
+
+    if keys is not None:
+        keys = keys.split(",")
+        new_data = {}
+        for key in keys:
+            new_data[key] = data.get(key)
+        data = new_data
 
     return data
