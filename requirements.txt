@@ -16,4 +16,4 @@ requests==2.27.1; (python_version >= "2.7" and python_full_version < "3.0.0") or
 smmap==5.0.0; python_version >= "3.7"
 typing-extensions==3.10.0.2; python_version < "3.10" and python_version >= "3.7"
 urllib3==1.26.9; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version < "4"
-werkzeug==2.0.2; python_version >= "3.6"
+werkzeug==2.2.3; python_version >= "3.6"
